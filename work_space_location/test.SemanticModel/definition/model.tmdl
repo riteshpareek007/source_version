@@ -1,0 +1,23 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-IN
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["ETBR"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.141.1754.0 (25.03)+e4409ed908ce97a5e9747f7dc48da475cf1c71a2
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table DateTableTemplate_1fb82dc4-982e-4f4f-af8b-ba492e990a8a
+ref table ETBR
+ref table Date
+ref table LocalDateTable_d3fc3485-baf3-4d19-8f15-01d3f23393fa
+
+ref cultureInfo en-US
+
