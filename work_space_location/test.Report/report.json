@@ -63,7 +63,7 @@
           "z": 0.00
         },
         {
-          "config": "{\"name\":\"b776041cad1203885690\",\"layouts\":[{\"id\":0,\"position\":{\"x\":293,\"y\":0,\"width\":334,\"height\":150,\"z\":5001,\"tabOrder\":5001}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"ETBR.Total YTD\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"e\",\"Entity\":\"ETBR\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"e\"}},\"Property\":\"Total YTD\"},\"Name\":\"ETBR.Total YTD\",\"NativeReferenceName\":\"Total YTD\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"e\"}},\"Property\":\"Total YTD\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true}}",
+          "config": "{\"name\":\"b776041cad1203885690\",\"layouts\":[{\"id\":0,\"position\":{\"x\":293,\"y\":0,\"width\":334,\"height\":150,\"z\":5001,\"tabOrder\":5001}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"ETBR.Total YTD\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"e\",\"Entity\":\"ETBR\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"e\"}},\"Property\":\"Total YTD\"},\"Name\":\"ETBR.Total YTD\",\"NativeReferenceName\":\"Cooldude  \"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"e\"}},\"Property\":\"Total YTD\"}}}]},\"columnProperties\":{\"ETBR.Total YTD\":{\"displayName\":\"Cooldude  \"}},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true}}",
           "filters": "[]",
           "height": 150.00,
           "width": 334.00,
