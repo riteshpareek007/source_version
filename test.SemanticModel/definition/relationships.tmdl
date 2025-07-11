@@ -1,0 +1,9 @@
+relationship c30c0829-6309-48f4-ab0d-f7ffdefc3941
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Date.Date
+	toColumn: LocalDateTable_d3fc3485-baf3-4d19-8f15-01d3f23393fa.Date
+
+relationship 295ef6e1-aae3-4000-b745-99f00c80a4c3
+	fromColumn: ETBR.Date
+	toColumn: Date.Date
+

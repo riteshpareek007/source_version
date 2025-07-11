@@ -1,0 +1,222 @@
+table ETBR
+	lineageTag: 162f617e-0384-4486-a10f-0de63e2dba2f
+
+	measure 'All Model Sales' = CALCULATE(SUM(ETBR[Retail]),ALL(ETBR[Model]))
+		formatString: 0
+		lineageTag: 47888e0d-23e2-467e-8440-502569fe1d15
+
+	measure 'Total Retail' = SUM(ETBR[Retail])
+		formatString: 0
+		lineageTag: 42df609b-f5d5-420a-a151-b1afaa5f7b91
+
+	measure 'Contribution in Retail by Model' = [Total Retail]/[All Model Sales]
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 32ba2797-8407-4227-b9bf-1df5808267e9
+
+	measure 'All Sales Enq.Type' = CALCULATE([Total Retail],ALL(ETBR[Sales Enquiry Type]))
+		formatString: 0
+		lineageTag: e0011356-661c-43fe-bd73-50341f312c8b
+
+	measure 'Contribution in RTL by Sales Enq.Type' = [Total Retail]/[All Sales Enq.Type]
+		formatString: 0%;-0%;0%
+		lineageTag: 0ef70848-7217-4a11-a8ef-340c430b51fe
+
+	measure 'All SC Rtl' = CALCULATE([Total Retail],ALL(ETBR[Sales Consultant]))
+		formatString: 0
+		lineageTag: 866c4bda-0d51-4d23-bc8b-02748baad979
+
+	measure 'Contribution in RTL by SC' = [Total Retail]/[All SC Rtl]
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: bf239fee-9d95-4620-b7c5-aaa599588c26
+
+	measure 'Total MTD' = TOTALMTD([Total Retail],'Date'[Date])
+		formatString: 0
+		lineageTag: 82aafc25-5dda-4831-9170-7d50f0ba8e04
+
+	measure 'Total QTD' = TOTALQTD([Total Retail],'Date'[Date])
+		formatString: 0
+		lineageTag: 5556e13d-3bab-4757-b7b1-8f759f7a0239
+
+	measure 'Total YTD' = TOTALYTD([Total Retail],'Date'[Date])
+		formatString: 0
+		lineageTag: 92124fb9-4d5c-4fea-89ee-0e40dca6ba4c
+
+	measure 'Total F''YTD' = TOTALYTD([Total Retail],'Date'[Date],"3/31")
+		formatString: 0
+		lineageTag: 89ef2ed9-1dbd-4c76-9a3e-21c4331e8c71
+
+	measure '7 DAYS AGO RTL' = CALCULATE([Total Retail],DATEADD('Date'[Date],-2,MONTH))
+		formatString: 0
+		lineageTag: c4d1c1e0-3fd6-46c2-8ae5-1dc9696e8f3a
+
+	measure 'PRE.DAY RTL' = CALCULATE([Total Retail],PREVIOUSDAY('Date'[Date]))
+		formatString: 0
+		lineageTag: a33e4c2f-bc73-4238-8f27-0146cb1783a8
+
+	measure 'Growth From Prev Year' = DIVIDE([Total Retail]-[PRE.DAY RTL],[PRE.DAY RTL],0)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 28d3bfc7-f74c-4747-bd5e-9b6b0372df0c
+
+	measure 'Same period last year' = CALCULATE([Total Retail],SAMEPERIODLASTYEAR('Date'[Date]))
+		formatString: 0
+		lineageTag: 557eefe4-c42d-4041-85c2-c5ebe84d392e
+
+	measure 'Prev Month RTL' = CALCULATE([Total Retail],PREVIOUSMONTH('Date'[Date]))
+		formatString: 0
+		lineageTag: 8a2d0c5a-21ca-4490-83d2-9e2d1c77bfb8
+
+	measure 'Growth from prev Month' = DIVIDE([Total Retail]-[Prev Month RTL],[Prev Month RTL])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: d893d8d3-0280-421f-9a4b-298e638b6b85
+
+	measure 'Prev. Year RTL' = CALCULATE([Total Retail],PREVIOUSYEAR('Date'[Date]))
+		formatString: 0
+		lineageTag: 8cbda0f9-fff3-4184-980f-b4d9aaf4611d
+
+	measure '3 months Cum Total' = CALCULATE([Total Retail],DATESINPERIOD('Date'[Date].[Date],LASTDATE('Date'[Date].[Date]),-3,MONTH))
+		formatString: 0
+		lineageTag: 4198bfab-12df-41b2-9045-b47e3a7fbf52
+
+	measure DFF
+		lineageTag: 0bf7df8b-17b3-4768-a3ca-180c5e7503f6
+
+	measure '3 month Cum avg' =
+			var sumtotal = CALCULATE([Total Retail],DATESINPERIOD('Date'[Date].[Date],LASTDATE('Date'[Date].[Date]),-3,MONTH))
+			
+			VAR countmonth = CALCULATE(DISTINCTCOUNT('Date'[Date].[Month]),DATESINPERIOD('Date'[Date].[Date],LASTDATE('Date'[Date].[Date]),-3,MONTH))
+			
+			RETURN DIVIDE(sumtotal,countmonth,0)
+		lineageTag: 193e9412-12aa-4ab5-9b26-ca8609090015
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Fiscal Year'
+		dataType: int64
+		formatString: 0
+		lineageTag: c245d47c-26c4-4dc7-ad49-c6b54a4499e2
+		summarizeBy: sum
+		sourceColumn: Fiscal Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 6f668f34-0da8-443f-8888-c9d91a00ac55
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Model
+		dataType: string
+		lineageTag: fd788510-9df8-4444-b355-6c0bd20b4780
+		summarizeBy: none
+		sourceColumn: Model
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sales Varient'
+		dataType: string
+		lineageTag: 47fae065-4b3e-44f1-ace7-c11941c8a138
+		summarizeBy: none
+		sourceColumn: Sales Varient
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sales Enquiry Type'
+		dataType: string
+		lineageTag: a25f5878-b43f-4983-a2c1-94b899336ea9
+		summarizeBy: none
+		sourceColumn: Sales Enquiry Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sales Enquiry Source'
+		dataType: string
+		lineageTag: 06bddda4-6ba1-47c7-be49-0bfc0dd4119a
+		summarizeBy: none
+		sourceColumn: Sales Enquiry Source
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sales Consultant'
+		dataType: string
+		lineageTag: 1230b8f2-f0ef-4de4-9e51-7d30249dcc67
+		summarizeBy: none
+		sourceColumn: Sales Consultant
+
+		annotation SummarizationSetBy = Automatic
+
+	column Segment
+		dataType: string
+		lineageTag: 2d3c7f63-ad95-41dc-8bd4-945b1bd0d08e
+		summarizeBy: none
+		sourceColumn: Segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'MILE ID'
+		dataType: string
+		lineageTag: de92814c-7b4b-4ead-af97-a5e504aa8903
+		summarizeBy: none
+		sourceColumn: MILE ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Enquiry
+		dataType: int64
+		formatString: 0
+		lineageTag: 7f316c1b-2e58-4c2e-8124-3dc4c0afbbe3
+		summarizeBy: sum
+		sourceColumn: Enquiry
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Test Drive'
+		dataType: int64
+		formatString: 0
+		lineageTag: 1fbdbd4d-d651-4ed9-aaea-25ed436d13a4
+		summarizeBy: sum
+		sourceColumn: Test Drive
+
+		annotation SummarizationSetBy = Automatic
+
+	column Booking
+		dataType: int64
+		formatString: 0
+		lineageTag: b3330eb7-836b-4d38-bb1c-babd25b9a992
+		summarizeBy: sum
+		sourceColumn: Booking
+
+		annotation SummarizationSetBy = Automatic
+
+	column Retail
+		dataType: int64
+		formatString: 0
+		lineageTag: d9f0bfe5-64d7-4231-a0ab-4b9845da7d1a
+		summarizeBy: sum
+		sourceColumn: Retail
+
+		annotation SummarizationSetBy = Automatic
+
+	partition ETBR-cb271230-da4b-48a6-a685-5094a2c3b53b = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("D:\Downloads\f5740ef0750e4314ad894c6c5eee7885.xlsx"), null, true),
+				    Sheet1_Sheet = Source{[Item="Sheet1",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Sheet1_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Fiscal Year", Int64.Type}, {"Date", type date}, {"Model", type text}, {"Sales Varient", type text}, {"Sales Enquiry Type", type text}, {"Sales Enquiry Source", type text}, {"Employee Name", type text}, {"Segment", type text}, {"MILE ID", type text}, {"Enquiry", Int64.Type}, {"Test Drive", Int64.Type}, {"Booking", Int64.Type}, {"Retail", Int64.Type}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([Segment] <> null and [Segment] <> "Total")),
+				    #"Renamed Columns" = Table.RenameColumns(#"Filtered Rows",{{"Employee Name", "Sales Consultant"}}),
+				    #"Filtered Rows1" = Table.SelectRows(#"Renamed Columns", each ([Retail] <> 0))
+				in
+				    #"Filtered Rows1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

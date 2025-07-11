@@ -1,0 +1,29 @@
+table Date
+	lineageTag: 3cd299e0-3dc3-4a27-ada7-cdf074317c7b
+
+	measure 'Growth over prev month' = DIVIDE([Total Retail]-[Same period last year],[Same period last year])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: e32474a4-da64-40ca-8625-7fa2ee97f3ba
+
+	column Date
+		formatString: Long Date
+		lineageTag: 5cb1885f-1688-4767-878e-115811c3dd45
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		variation Variation
+			isDefault
+			relationship: c30c0829-6309-48f4-ab0d-f7ffdefc3941
+			defaultHierarchy: LocalDateTable_d3fc3485-baf3-4d19-8f15-01d3f23393fa.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition Date = calculated
+		mode: import
+		source = CALENDAR(MIN(ETBR[Date]),MAX(ETBR[Date]))
+
+	annotation PBI_Id = 3b8eba7ea40d42ee94b1ed625e8865a6
+
